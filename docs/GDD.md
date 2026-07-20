@@ -64,10 +64,19 @@ Le trait est une étiquette **dérivée** des 4 scores (pas une donnée de base)
 
 ### 3.3 Cohésion d'équipe
 
-Calculée à partir de la **dispersion** (écart-type) des 4 axes de personnalité entre les membres d'une équipe, poids égaux sur les 4 axes. Faible dispersion = bonne cohésion.
+Score composé de deux termes à poids :
+
+- **Similarité** : dispersion (écart-type) des membres sur 3 axes (autonomie, agressivité, intelligence — le leadership en est exclu, il est traité séparément par le terme de hiérarchie). Faible dispersion = bonne similarité. `similarité = 100 - écart_type_moyen`.
+- **Hiérarchie** : écart entre le leadership du membre au score le plus haut et la moyenne du leadership des autres membres (le leader est exclu de cette moyenne). Un écart net (leader clairement identifié) augmente ce terme.
+
+`cohésion = similarité × poids similarité + hiérarchie × poids hiérarchie`
+
+Cas particuliers :
+- Équipe d'un seul combattant : cohésion maximale (100), il n'y a pas de dispersion ni de hiérarchie à mesurer.
+- Équipe vide : cas d'erreur (ne devrait pas se produire en pratique).
 
 - **Pour le proto** : score fixe, calculé une fois au début du combat.
-- **Évolution prévue** (hors proto) : dynamique en cours de partie (modificateurs temporaires liés aux événements — pertes, victoires, temps passé ensemble).
+- **Évolution prévue** : dynamique en cours de partie (modificateurs temporaires liés aux événements — pertes, victoires, temps passé ensemble).
 
 **Effet en combat** : à chaque décision d'équipe (déplacement, ciblage), un jet basé sur la cohésion détermine si l'équipe agit **groupée** ou se **fragmente** (chaque membre décide/agit seul).
 
