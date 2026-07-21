@@ -215,7 +215,7 @@ En CQC, le ciblage tête est moins fréquent (le CQC reste orienté dégâts/neu
 | Zone touchée | Effet |
 |---|---|
 | Tête | Élimination instantanée |
-| Torse | Dégâts PV normaux |
+| Torse | Dégâts PV = dégâts de l'arme équipée |
 | Bras (1) | Malus Aim |
 | Bras (2) | Incapable d'attaquer (ni tir ni CQC) |
 | Jambe (1) | Malus Mobility |
@@ -225,13 +225,15 @@ PV globaux en parallèle, élimination à 0.
 
 ### 5.9 Équipement (v1 simplifiée)
 
-| Arme | Catégorie | Effet |
-|---|---|---|
-| Rien (mains nues) | CQC | +0 |
-| Couteau | CQC | Bonus Brawl effectif |
-| Pistolet | Distance | Bonus Aim effectif |
+Une arme définit sa **catégorie** (gouverne quelle formule de résolution s'applique en §5.6 et quelle action est utilisable en §5.4) et ses **dégâts** (appliqués aux PV en cas de touche au torse, §5.8). Pas de bonus aux stats effectives (Aim/Brawl) au niveau de l'arme elle-même — ce sera le rôle des futurs attachements (ex: lunette de visée) sur un slot séparé.
 
-Extensible plus tard (fusils, snipers, armes lourdes) sans changer l'architecture.
+| Arme | Catégorie | Dégâts |
+|---|---|---|
+| Rien (mains nues) | CQC | Dégâts minimes |
+| Couteau | CQC | Dégâts modérés |
+| Pistolet | Distance | Dégâts modérés/élevés |
+
+Valeurs exactes à ajuster en test. Extensible plus tard (fusils, snipers, armes lourdes, attachements) sans changer l'architecture.
 
 ---
 
