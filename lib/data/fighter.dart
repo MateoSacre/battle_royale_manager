@@ -1,4 +1,5 @@
 import 'package:battle_royale_manager/calcul_service/trait_calcul_service.dart';
+import 'package:battle_royale_manager/constants/fighter_constant.dart';
 import 'package:battle_royale_manager/constants/general_constant.dart';
 import 'package:battle_royale_manager/data/combat_stats.dart';
 import 'package:battle_royale_manager/data/personality_profile.dart';
@@ -32,18 +33,57 @@ class Fighter {
     );
     final trait = TraitCalculService.getTrait(profile);
     final bool isTrueTrait = TraitCalculService.isTrueTrait();
-    if(isTrueTrait){
+    if (isTrueTrait) {
       profile = trait.personalityProfile;
     }
     final stats = CombatStats(
-      carry: GeneralConstant.GLOBAL_RANDOM.nextInt(100),
-      observation: GeneralConstant.GLOBAL_RANDOM.nextInt(100),
-      mobility: GeneralConstant.GLOBAL_RANDOM.nextInt(100),
-      brawl: GeneralConstant.GLOBAL_RANDOM.nextInt(100),
-      aim: GeneralConstant.GLOBAL_RANDOM.nextInt(100),
-      tactic: GeneralConstant.GLOBAL_RANDOM.nextInt(100),
+      carry:
+          GeneralConstant.GLOBAL_RANDOM.nextInt(
+            FighterConstant.NATURAL_STAT_WEIGHT,
+          ) +
+          (profile.autonomy * FighterConstant.PROFILE_STAT_WEIGHT / 100)
+              .round(),
+      observation:
+          GeneralConstant.GLOBAL_RANDOM.nextInt(
+            FighterConstant.NATURAL_STAT_WEIGHT,
+          ) +
+          (profile.intelligence * FighterConstant.PROFILE_STAT_WEIGHT / 100)
+              .round(),
+      mobility:
+          GeneralConstant.GLOBAL_RANDOM.nextInt(
+            FighterConstant.NATURAL_STAT_WEIGHT,
+          ) +
+          ((profile.autonomy + profile.aggressivity) /
+                  2 *
+                  FighterConstant.PROFILE_STAT_WEIGHT /
+                  100)
+              .round(),
+      brawl:
+          GeneralConstant.GLOBAL_RANDOM.nextInt(
+            FighterConstant.NATURAL_STAT_WEIGHT,
+          ) +
+          (profile.aggressivity * FighterConstant.PROFILE_STAT_WEIGHT / 100)
+              .round(),
+      aim:
+          GeneralConstant.GLOBAL_RANDOM.nextInt(
+            FighterConstant.NATURAL_STAT_WEIGHT,
+          ) +
+          ((profile.aggressivity + profile.intelligence) /
+                  2 *
+                  FighterConstant.PROFILE_STAT_WEIGHT /
+                  100)
+              .round(),
+      tactic:
+          GeneralConstant.GLOBAL_RANDOM.nextInt(
+            FighterConstant.NATURAL_STAT_WEIGHT,
+          ) +
+          ((profile.leadership + profile.intelligence) /
+                  2 *
+                  FighterConstant.PROFILE_STAT_WEIGHT /
+                  100)
+              .round(),
     );
-    final maxHp = 95 + GeneralConstant.GLOBAL_RANDOM.nextInt(11);
+    final maxHp = 50 + stats.carry;
     return Fighter(
       name: name,
       personalityProfile: profile,
